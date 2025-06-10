@@ -43,7 +43,7 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
 
-      - name: Debug: Search for query hits
+      - name: Search for query hits
         if: always()
         run: |
           echo "== Search CodeQL logs for 'strcpy' =="
