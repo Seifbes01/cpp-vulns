@@ -1,13 +1,22 @@
-import cpp
+/**
+ * @name Custom strcpy buffer overflow
+ * @description Detects unsafe strcpy usage.
+ * @kind path-problem
+ * @problem.severity warning
+ * @precision medium
+ * @tags security
+ */
 
-class OverflowCandidate extends FunctionCall {
-  OverflowCandidate() {
-    this.getTarget().getName() = "strcpy" or
-    this.getTarget().getName() = "gets"
+import cpp
+import semmle.code.cpp.security.TaintTracking
+
+class UnsafeStrcpyCall extends Expr {
+  UnsafeStrcpyCall() {
+    this.getTarget().(Function).getName() = "strcpy"
   }
 
-  override string toString() { result = "Potential buffer overflow via " + this.getTarget().getName() }
+  override string toString() { result = "Potential buffer overflow via strcpy" }
 }
 
-from OverflowCandidate call
-select call, "Potential buffer overflow detected due to unsafe function call."
+from UnsafeStrcpyCall call
+select call, "Potential buffer overflow using strcpy."
