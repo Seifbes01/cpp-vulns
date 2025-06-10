@@ -1,3 +1,6 @@
-- description: Custom security queries for C/C++
-- queries:
-    - cpp/test-query.ql
+description: Custom security queries for C/C++
+queries: .
+include:
+  kind: 
+    - problem
+    - path-problem
