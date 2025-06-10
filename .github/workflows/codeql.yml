@@ -12,7 +12,7 @@ jobs:
     name: Analyze (CodeQL)
     runs-on: ubuntu-latest
     permissions:
-      security-events: write  # required to upload results to GitHub
+      security-events: write
       actions: read
       contents: read
 
@@ -24,7 +24,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: List custom queries (for debug)
+    - name: Debug: List custom queries
       run: ls -R ./custom-queries
 
     - name: Initialize CodeQL
@@ -42,3 +42,9 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
+
+    - name: Debug: Search for query hits
+      if: always()
+      run: |
+        echo "== Search CodeQL logs for 'strcpy' =="
+        find /home/runner -name '*.log' | xargs grep -i strcpy || true
