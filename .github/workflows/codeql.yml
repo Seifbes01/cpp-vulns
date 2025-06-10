@@ -24,7 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Debug: List custom queries
+      - name: List custom queries
         run: ls -R ./custom-queries
 
       - name: Initialize CodeQL
