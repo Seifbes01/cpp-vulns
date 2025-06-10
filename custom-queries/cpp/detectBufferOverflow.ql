@@ -5,6 +5,7 @@
  * @problem.severity warning
  * @precision medium
  * @tags security
+* @id cpp/custom-test-query
  */
 
 import cpp
