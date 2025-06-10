@@ -21,30 +21,30 @@ jobs:
         language: [ 'cpp' ]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Debug: List custom queries
-      run: ls -R ./custom-queries
+      - name: Debug: List custom queries
+        run: ls -R ./custom-queries
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: ${{ matrix.language }}
-        queries: ./custom-queries/cpp
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: ./custom-queries/cpp
 
-    - name: Build using CMake
-      run: |
-        mkdir build
-        cd build
-        cmake ..
-        make
+      - name: Build using CMake
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
 
-    - name: Debug: Search for query hits
-      if: always()
-      run: |
-        echo "== Search CodeQL logs for 'strcpy' =="
-        find /home/runner -name '*.log' | xargs grep -i strcpy || true
+      - name: Debug: Search for query hits
+        if: always()
+        run: |
+          echo "== Search CodeQL logs for 'strcpy' =="
+          find /home/runner -name '*.log' | xargs grep -i strcpy || true
