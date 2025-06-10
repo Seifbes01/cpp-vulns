@@ -1,2 +1,3 @@
-# custom-queries/custom.qls
-- include: cpp/test-query.ql
+- description: Custom security queries for C/C++
+- queries:
+    - cpp/test-query.ql
