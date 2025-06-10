@@ -1,0 +1,2 @@
+# custom-queries/custom.qls
+- include: cpp/test-query.ql

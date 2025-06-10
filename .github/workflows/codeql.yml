@@ -9,22 +9,30 @@ on:
 
 jobs:
   analyze:
+    name: Analyze (CodeQL)
     runs-on: ubuntu-latest
     permissions:
-      security-events: write
+      security-events: write  # required to upload results to GitHub
+      actions: read
+      contents: read
+
     strategy:
       matrix:
         language: [ 'cpp' ]
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v4
+
+    - name: List custom queries (for debug)
+      run: ls -R ./custom-queries
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
-        queries: ./custom-queries
+        queries: ./custom-queries/custom.qls
+
     - name: Build using CMake
       run: |
         mkdir build

@@ -1,22 +1,19 @@
 /**
  * @name Custom strcpy buffer overflow
  * @description Detects unsafe strcpy usage.
- * @kind path-problem
+ * @kind problem
  * @problem.severity warning
  * @precision medium
  * @tags security
-* @id cpp/custom-test-query
+ * @id cpp/custom-test-query
  */
 
 import cpp
-import semmle.code.cpp.security.TaintTracking
 
-class UnsafeStrcpyCall extends Expr {
+class UnsafeStrcpyCall extends FunctionCall {
   UnsafeStrcpyCall() {
-    this.getTarget().(Function).getName() = "strcpy"
+    this.getTarget().getName() = "strcpy"
   }
-
-  override string toString() { result = "Potential buffer overflow via strcpy" }
 }
 
 from UnsafeStrcpyCall call
